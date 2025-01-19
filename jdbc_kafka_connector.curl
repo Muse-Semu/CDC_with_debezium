@@ -1,0 +1,40 @@
+curl -X POST http://localhost:8085/connectors -H "Content-Type: application/json" -d '{
+  "name": "jdbc-core-sink-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "core.public.eirp,core.public.buyer_details,core.public.document_details,core.public.item,core.public.reference_details,core.public.seller_details,core.public.source_system,core.public.payment_details,core.public.value_details,core.public.cancellation_request,core.public.eirp_schema,core.public.message_template,core.public.response,core.public.rules",
+    "connection.url": "jdbc:postgresql://172.16.0.58:5433/backoffice_portal",
+    "connection.user": "postgres",
+    "connection.password": "admin",
+    "auto.create": "true",
+    "auto.evolve": "true",
+    "insert.mode": "upsert",
+    "pk.mode": "record_key",
+    "pk.fields": "id",
+    "table.name.format": "${topic}",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false"
+  }
+}'
+
+
+
+
+curl -X GET http://localhost:8085/connectors/jdbc-core-sink-connector/config
+
+
+curl -X DELETE http://localhost:8085/connectors/jdbc-core-sink-connector
+
+
+curl -X DELETE http://localhost:8085/connectors/simple-connector
+
+curl -X DELETE http://localhost:8085/connectors/simple-connector
+
+
+
+
+curl -X POST -H "Content-Type: application/json"  -d @kafka-connector.json http://localhost:8085/connectors
+

@@ -1,0 +1,56 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:3030/amana
+    username: postgres
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+master.datasource.host: 172.16.0.58
+master.datasource.port: 5433
+master.datasource.database: eirp
+master.datasource.username: postgres
+master.datasource.password: admin
+
+debezium:
+  include-metadata: true
+  include-schema-changes: false
+  connector:
+    name: core_connector
+    connector-class: io.debezium.connector.postgresql.PostgresConnector
+    offset-storage: org.apache.kafka.connect.storage.FileOffsetBackingStore
+    offset-storage-file-filename: /tmp/offsets.dat
+    offset-flush-interval-ms: 60000
+    database:
+      hostname: 172.16.0.58
+      port: 5433
+      user: postgres
+      password: admin
+      dbname: eirp_latest
+      server-id: 10181
+      server-name: core-server
+    topic-prefix: core
+    database-history: io.debezium.relational.history.MemoryDatabaseHistory
+    publication-autocreate-mode: filtered
+    plugin-name: pgoutput
+    slot-name: core_listener
+    table-include-list: >
+      public.eirp,
+      public.buyer_details,
+      public.document_details,
+      public.item,
+      public.reference_details,
+      public.seller_details,
+      public.source_system,
+      public.payment_details,
+      public.value_details,
+      public.cancellation_request,
+      public.eirp_schema,
+      public.message_template,
+      public.response,
+      public.rules
+

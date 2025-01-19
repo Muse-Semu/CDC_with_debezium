@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  customer_solider_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: customer_soldier
+
+    ports:
+      - "3040:3040"
+    networks:
+      - debzium_default
+
+networks:
+  debzium_default:
+    external: true

@@ -1,0 +1,10 @@
+spring:
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: customer-group
+      auto-offset-reset: earliest
+      properties:
+        schema.registry.url: http://schema-registry:8181
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer

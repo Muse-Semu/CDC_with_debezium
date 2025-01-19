@@ -1,0 +1,20 @@
+docker run --tty --network debzium_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -s key=s -s value=avro -r http://schema-registry:8181 -t postgres.public.customer
+
+
+# GET LIST OF TOPICS
+docker exec -it debezium_kafka kafka-topics --bootstrap-server kafka:9092 --list
+
+
+## REPLICATION OFFSET
+Reset or Recreate the Replication Slot:
+If you cannot resume streaming from the desired position, reset the replication slot.
+##
+
+SELECT pg_drop_replication_slot('core_listener');
+SELECT pg_create_logical_replication_slot('core_listener', 'pgoutput');
+
+
+
+
+
+

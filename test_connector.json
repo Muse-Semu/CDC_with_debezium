@@ -1,0 +1,25 @@
+{
+  "name": "simple-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "item",
+    "connection.url": "jdbc:postgresql://172.16.0.58:5433/backoffice_portal",
+    "connection.user": "postgres",
+    "connection.password": "admin",
+    "auto.create": "true",
+    "auto.evolve": "true",
+    "insert.mode": "upsert",
+    "pk.mode": "record_key",
+    "pk.fields": "id",
+    "table.name.format": "${topic}",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "errors.tolerance": "all",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true"
+
+  }
+}

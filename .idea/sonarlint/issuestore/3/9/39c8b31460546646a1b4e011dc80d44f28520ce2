@@ -1,0 +1,22 @@
+
+
+java:S1192L"HDefine a constant instead of duplicating this literal "country" 3 times.(¹×ñüÿÿÿÿ8ü¡àùÆ2J$98d9e8e6-75ae-461e-8470-3177e837d3e5
+‘
+java:S1192D"NDefine a constant instead of duplicating this literal "customer_name" 3 times.(Ö‡› 8ÒŸßùÆ2J$15e89d28-92f9-4a6c-b9c0-05a25ecca5c1
+
+java:S1192@"LDefine a constant instead of duplicating this literal "customer_id" 3 times.(Øú´ë8’ÌòùÆ2J$a8b18574-76ad-4f3a-8f32-85bb100736ad
+}
+java:S18541":Remove this useless assignment to local variable "mapper".(ÂØùú8ŞŸßùÆ2J$846a6701-a98e-452e-ba34-512c76a56122
+n
+java:S14811"+Remove this unused "mapper" local variable.(ÂØùú8ïŸßùÆ2J$6e487ee4-11ac-41c7-b3a2-f27762f48d8f
+m	java:S1063"+Replace this use of System.out by a logger.(ê¾ú®8ïŸßùÆ2J$e32fd696-2c83-4193-b7a6-f1195421b6f0
+r	java:S1065"+Replace this use of System.out by a logger.(¦˜Éóÿÿÿÿÿ8ğŸßùÆ2J$6a08165d-d760-4739-98cf-ac96cf8329f0
+r	java:S1068"+Replace this use of System.out by a logger.(åÖ•úÿÿÿÿ8ğŸßùÆ2J$0b171941-d1ef-497d-b930-66a5f5a9d84e
+‰
+java:S6201@"FReplace this instanceof check and cast with 'instanceof Number number'(Øú´ë8±ÌòùÆ2J$16f6f366-99c3-4474-80bf-4c155214f703
+‰
+java:S6201D"FReplace this instanceof check and cast with 'instanceof String string'(Ö‡› 8óŸßùÆ2J$ce070726-db64-4089-af71-063ddd6e6298
+‰
+java:S6201H"FReplace this instanceof check and cast with 'instanceof String string'(¼‹«ù8ôŸßùÆ2J$e54c22cf-c768-449b-bc0c-75cb02170586
+
+java:S6201L"FReplace this instanceof check and cast with 'instanceof String string'(¹×ñüÿÿÿÿ8–¢àùÆ2J$7218095e-555c-4ea1-ab80-29039951e2cc

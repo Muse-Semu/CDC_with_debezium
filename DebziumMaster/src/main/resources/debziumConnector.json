@@ -1,0 +1,19 @@
+curl -X POST \
+-H "Content-Type: application/json" \
+--data '{
+"name": "postgres-connector",
+"config": {
+"connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+"database.hostname": "localhost",
+"database.port": "5454",
+"database.user": "admin",
+"database.password": "admin",
+"database.dbname": "product",
+"database.server.name": "dbserver1",
+"plugin.name": "pgoutput",
+"slot.name": "debezium_slot",
+"publication.name": "my_publication",
+"tombstones.on.delete": "false"
+}
+}' \
+http://localhost:8083/connectors

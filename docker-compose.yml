@@ -1,0 +1,110 @@
+version: "3.7"
+services:
+  postgres:
+    container_name: debezium_postgres
+    image: debezium/postgres:15-alpine
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=debezium_master
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  zookeeper:
+    container_name: debezium_zookeeper
+    image: confluentinc/cp-zookeeper:5.5.3
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2182
+    ports:
+      - 2182:2181
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+
+  kafka:
+    container_name: debezium_kafka
+    image: confluentinc/cp-enterprise-kafka:5.5.3
+    depends_on: [zookeeper]
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2182
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+    ports:
+      - 9092:9092
+      - 9093:9093
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+
+  debezium:
+    container_name: debezium_connect
+    image: debezium/connect:1.4
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8181
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8181
+    depends_on: [kafka]
+    ports:
+      - 8084:8083
+    volumes:
+      - debezium_data:/kafka/connect
+
+  schema-registry:
+    container_name: debezium_schema_registry
+    image: confluentinc/cp-schema-registry:5.5.3
+    environment:
+      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zookeeper:2182
+      - SCHEMA_REGISTRY_HOST_NAME=schema-registry
+      - SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8181,http://localhost:8181
+    ports:
+      - 8181:8081
+    depends_on: [zookeeper, kafka]
+    volumes:
+      - schema_registry_data:/var/lib/schema-registry
+
+
+  kafka-connect:
+    container_name: debezium_kafka_connect
+    image: confluentinc/cp-kafka-connect:5.5.3
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_GROUP_ID: kafka-connect-group
+      CONNECT_CONFIG_STORAGE_TOPIC: connect_configs
+      CONNECT_OFFSET_STORAGE_TOPIC: connect_offsets
+      CONNECT_STATUS_STORAGE_TOPIC: connect_statuses
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_PLUGIN_PATH: /usr/share/java,/kafka/connect
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: debezium_kafka_connect
+    depends_on:
+      - kafka
+    ports:
+      - 8085:8083
+    volumes:
+      - ./plugins:/kafka/connect
+
+
+
+
+
+
+
+# Volumes to persist data
+volumes:
+  postgres_data:
+  zookeeper_data:
+  kafka_data:
+  debezium_data:
+  schema_registry_data:
