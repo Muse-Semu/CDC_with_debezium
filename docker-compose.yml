@@ -84,16 +84,20 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_PLUGIN_PATH: /usr/share/java,/kafka/connect
+      CONNECT_PLUGIN_PATH: /usr/share/java
       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-      CONNECT_REST_ADVERTISED_HOST_NAME: debezium_kafka_connect
+      CONNECT_REST_ADVERTISED_HOST_NAME: localhost
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8181
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8181
+      SCHEMA_REGISTRY_URL: http://schema-registry:8181
     depends_on:
       - kafka
     ports:
       - 8085:8083
     volumes:
-      - ./plugins:/kafka/connect
+      - kafka_connect_data:/var/lib/kafka/data
+
 
 
 
@@ -108,3 +112,4 @@ volumes:
   kafka_data:
   debezium_data:
   schema_registry_data:
+  kafka_connect_data:

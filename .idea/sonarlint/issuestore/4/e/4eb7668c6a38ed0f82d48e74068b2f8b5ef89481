@@ -1,3 +1,10 @@
 
+
+java:S1854*">Remove this useless assignment to local variable "beforeNode".(÷Ëˆó8ìÔ»ŸÈ2J$abdd9804-0e09-4dde-8928-e12098cf37c0
 }
-java:S6213":Rename this variable to not match a restricted identifier.(«×­©8ù—×—Ç2J$2e5207de-2e57-4e5d-9e75-c2bdde57ad96
+java:S6213":Rename this variable to not match a restricted identifier.(«×­©8¸ŸÈ2J$74be6392-0f47-45da-898c-0b65bea29f97
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(çÅµÚúÿÿÿÿ8È“¾ŸÈ2J$bc70fb4d-fa83-4251-b608-d3ec29baeefc
+r
+java:S1481*"/Remove this unused "beforeNode" local variable.(÷Ëˆó8ıÔ»ŸÈ2J$c809e12f-df6c-4008-ad49-c30fc8d0c779
+…
+java:S1128"BRemove this unused import 'com.fasterxml.jackson.core.JsonParser'.(ñîïï8º’ÒŸÈ2J$d44c28ee-d69e-46e2-94aa-82dd0fc5c069

@@ -1,9 +1,9 @@
 {
-  "name": "simple-connector",
+  "name": "customer-connector",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
     "tasks.max": "1",
-    "topics": "item",
+    "topics": "postgres.public.customer",
     "connection.url": "jdbc:postgresql://172.16.0.58:5433/backoffice_portal",
     "connection.user": "postgres",
     "connection.password": "admin",
@@ -11,15 +11,20 @@
     "auto.evolve": "true",
     "insert.mode": "upsert",
     "pk.mode": "record_key",
-    "pk.fields": "id",
+    "pk.fields": "customer_id",
     "table.name.format": "${topic}",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-    "value.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "true",
     "key.converter": "org.apache.kafka.connect.json.JsonConverter",
-    "key.converter.schemas.enable": "false",
+    "key.converter.schemas.enable": "true",
     "errors.tolerance": "all",
     "errors.log.enable": "true",
-    "errors.log.include.messages": "true"
-
+    "errors.log.include.messages": "true",
+    "transforms": "ExtractAfter,ReplaceTopicName",
+    "transforms.ExtractAfter.type": "org.apache.kafka.connect.transforms.ExtractField$Value",
+    "transforms.ExtractAfter.field": "after",
+    "transforms.ReplaceTopicName.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.ReplaceTopicName.regex": "postgres\\.public\\.(.*)",
+    "transforms.ReplaceTopicName.replacement": "$1"
   }
 }

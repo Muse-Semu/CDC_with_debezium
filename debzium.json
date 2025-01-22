@@ -9,6 +9,8 @@
     "database.password": "admin",
     "database.dbname": "debezium_master",
     "database.server.name": "postgres",
-    "table.include.list": "public.customer,public.employee"
+    "table.include.list": "public.customer,public.employee",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter"
   }
 }

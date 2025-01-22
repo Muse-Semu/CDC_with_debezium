@@ -193,3 +193,6 @@ w
 G.idea/sonarlint/issuestore/3/5/35b8c13cf2eb2a194eada000eb310d65aed53b2a,f/a/fa996fb25dd8afe6bf56a281bdff677f139b23bf
 w
 G.idea/sonarlint/issuestore/7/e/7e83a175fad1794fda0d0361b8a1d5752bcaec9c,4/b/4bf3f7d38891c946eae6385cfd26b5f154cdeaf9
+:
+
+Dockerfile,6/6/6651ddff6eb82c840ced7c1dddee15c6e1913dd4

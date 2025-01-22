@@ -5,6 +5,8 @@ import com.debzium.debzium_slave.repository.CustomerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.debezium.data.Envelope;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Map;
 
 @Service
 public class CustomerService {
+    private static final Logger log = LogManager.getLogger(CustomerService.class);
     private final CustomerRepository customerRepository;
     @Autowired
     public CustomerService(CustomerRepository customerRepository) {
@@ -48,12 +51,12 @@ public class CustomerService {
     public void replicateData(Map<String, Object> customerData, Envelope.Operation operation) {
         final ObjectMapper mapper = new ObjectMapper();
         final Customer customer = mapToCustomer(customerData);
-        System.out.println(customer);
+       log.info(customer);
         if (Envelope.Operation.DELETE == operation) {
-            System.out.println("delete the record");
+           log.info("delete the record");
             customerRepository.deleteById(customer.getCustomerId());
         } else {
-            System.out.println("inserting the record");
+           log.info("inserting the record");
             customerRepository.save(customer);
         }
     }

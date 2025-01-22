@@ -18,7 +18,7 @@ master.datasource.password: admin
 
 debezium:
   include-metadata: true
-  include-schema-changes: false
+  include-schema-changes: true
   connector:
     name: core_connector
     connector-class: io.debezium.connector.postgresql.PostgresConnector
@@ -32,7 +32,7 @@ debezium:
       password: admin
       dbname: eirp_latest
       server-id: 10181
-      server-name: core-server
+      server-name: core
     topic-prefix: core
     database-history: io.debezium.relational.history.MemoryDatabaseHistory
     publication-autocreate-mode: filtered

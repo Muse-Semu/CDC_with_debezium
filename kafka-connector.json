@@ -11,7 +11,7 @@
     "auto.evolve": "true",
     "insert.mode": "upsert",
     "pk.mode": "record_key",
-    "pk.fields": "id",
+    "pk.fields": "MESSAGE_KEY",
     "table.name.format": "${topic}",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter.schemas.enable": "true",
@@ -23,7 +23,9 @@
     "transforms": "RegexRouter",
     "transforms.RegexRouter.type": "org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.RegexRouter.regex": "core\\.public\\.(.*)",
-    "transforms.RegexRouter.replacement": "$1"
+    "transforms.RegexRouter.replacement": "$1",
+    "key.converter.schema.registry.url": "http://schema-registry:8181",
+    "value.converter.schema.registry.url": "http://schema-registry:8181"
 
   }
 }
