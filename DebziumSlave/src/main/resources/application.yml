@@ -54,3 +54,5 @@ debezium:
       public.response,
       public.rules
 
+server:
+  port: 5678
