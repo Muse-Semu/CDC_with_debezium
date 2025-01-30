@@ -1,16 +1,16 @@
 version: "3.7"
 services:
-  postgres:
-    container_name: debezium_postgres
-    image: debezium/postgres:15-alpine
-    ports:
-      - 5433:5432
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=debezium_master
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+#  postgres:
+#    container_name: debezium_postgres
+#    image: debezium/postgres:15-alpine
+#    ports:
+#      - 5433:5432
+#    environment:
+#      - POSTGRES_USER=admin
+#      - POSTGRES_PASSWORD=admin
+#      - POSTGRES_DB=debezium_master
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
 
   zookeeper:
     container_name: debezium_zookeeper
@@ -21,6 +21,7 @@ services:
       - 2182:2181
     volumes:
       - zookeeper_data:/var/lib/zookeeper/data
+    restart: always
 
   kafka:
     container_name: debezium_kafka
@@ -33,12 +34,15 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_BROKER_ID: -1
+
 
     ports:
       - 9092:9092
       - 9093:9093
     volumes:
       - kafka_data:/var/lib/kafka/data
+    restart: always
 
   debezium:
     container_name: debezium_connect
@@ -57,6 +61,7 @@ services:
       - 8084:8083
     volumes:
       - debezium_data:/kafka/connect
+
 
   schema-registry:
     container_name: debezium_schema_registry
@@ -97,11 +102,6 @@ services:
       - 8085:8083
     volumes:
       - kafka_connect_data:/var/lib/kafka/data
-
-
-
-
-
 
 
 
